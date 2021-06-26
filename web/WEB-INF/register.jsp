@@ -14,10 +14,11 @@
     </head>
     <body>
         <h1>Shopping List</h1>
-        <form method="post">
+        <form action="" method="post">
             <label>Username: </label>
             <input type="text" name="input_username" value=${username}>
-            <input type="submit" action="register" name="register_Button" value="Register name">
+            <input type="submit" name="register_Button" value="Register name">
+            <input type="hidden" name="action" value="register">
         </form>
             <c:if test="${!valid_username}">
                 <c:set var="invalid_mssg" value="Please provide a username!" />

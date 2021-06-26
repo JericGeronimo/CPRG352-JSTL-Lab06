@@ -13,13 +13,16 @@
         <title>Shopping List Page</title>
     </head>
     <body>
-         <h1>Shopping List</h1>
-         <h3>Hello ${user_name}</h3>
-         <a href="ShoppingList?logout" action="delete">Log out</a>
-         <h1>List</h1>
-         <form>
-             <label>Add item: </label>
-             <input type="text" name="input_item" value=>
-         </form>
+        <h1>Shopping List</h1>
+        <h3>Hello ${user_name}</h3>
+        <form action="" method="post">
+            <a href="ShoppingList?logout">Log out</a>
+            <input type="hidden" name="action" value="logout">
+        </form>
+        <h1>List</h1>
+        <form>
+            <label>Add item: </label>
+            <input type="text" name="input_item" value="">
+        </form>
     </body>
 </html>
