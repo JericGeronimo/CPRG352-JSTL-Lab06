@@ -53,12 +53,11 @@ public class ShoppingListServlet extends HttpServlet {
         if (action != null && action.equals("register")) {
             if (username != null || !username.equals("")) {
                 session.setAttribute("user_name", username);
-                //request.setAttribute("valid_username", true);
                 // send the user to the shopping list page
                 response.sendRedirect("ShoppingList");
             } else {
                 // indicate improper input by toggling attribute
-                // request.setAttribute("valid_username", false);
+                request.setAttribute("valid_username", false);
                 // send the user to the register page
                 response.sendRedirect("ShoppingList");
             }
