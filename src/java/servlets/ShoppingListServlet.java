@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class ShoppingListServlet extends HttpServlet {
         HttpSession session = request.getSession();
         // grabs the username of the client
         String username = (String) session.getAttribute("user_name");
-         // grabs the actions available in the application
+        // grabs the actions available in the application
         String action = request.getParameter("action");
         if (action != null && action.equals("logout")) {
             // invalidates session then 
@@ -29,8 +30,7 @@ public class ShoppingListServlet extends HttpServlet {
             session.invalidate();
             // send the user to the register page
             response.sendRedirect("ShoppingList");
-        }
-        else if (username == null || username.equals("")) {
+        } else if (username == null || username.equals("")) {
             // Display the register page
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
@@ -49,6 +49,9 @@ public class ShoppingListServlet extends HttpServlet {
         String username = request.getParameter("input_username");
         // grabs the actions available in the application
         String action = request.getParameter("action");
+
+        ArrayList<String> list = new ArrayList<String>();
+
         // determines if register button is clicked by user
         if (action != null && action.equals("register")) {
             if (username != null || !username.equals("")) {
@@ -57,10 +60,24 @@ public class ShoppingListServlet extends HttpServlet {
                 response.sendRedirect("ShoppingList");
             } else {
                 // indicate improper input by toggling attribute
-                request.setAttribute("valid_username", false);
+                request.setAttribute("invalid_username", true);
                 // send the user to the register page
                 response.sendRedirect("ShoppingList");
             }
+        } else if (action != null && action.equals("add")) {
+            // grabs the item from the input field
+            String item = request.getParameter("input_item");
+            if(item!= null){
+                list.add(item);
+            }
+            // 
+            session.setAttribute("shopItem", list);
+            // toggle visibility of delete button
+            session.setAttribute("isNotEmpty", true);
+            // send the user to the shopping list page
+            response.sendRedirect("ShoppingList");
+        } else if (action != null && action.equals("delete")){
+            response.sendRedirect("ShoppingList");
         }
     }
 }

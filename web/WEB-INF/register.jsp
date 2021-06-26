@@ -20,9 +20,8 @@
             <input type="submit" name="register_Button" value="Register name">
             <input type="hidden" name="action" value="register">
         </form>
-            <c:if test="${!valid_username}">
-                <c:set var="invalid_mssg" value="Please provide a username!" />
+            <c:if test="${!invalid_username}">
+                <p>Please provide a username!</p>
             </c:if>
-            <p>${invalid_mssg}</p>
     </body>
 </html>

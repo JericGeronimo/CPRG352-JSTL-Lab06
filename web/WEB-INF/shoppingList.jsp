@@ -23,7 +23,14 @@
             <label>Add item: </label>
             <input type="text" name="input_item" value="">
             <input type="submit" name="add_Button" value="Add">
-            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="action" value="add"> <br>
+            <c:forEach var="item" items="${shopItem}">
+                <input type="radio" name="" value="${shopItem}">${shopItem} <br>
+            </c:forEach>
+            <!-- Will show delete button if one item in the list is present -->
+            <c:if test="${isNotEmpty}">
+                <input type="submit" name="delete_Button" value="Delete">
+            </c:if>
         </form>
     </body>
 </html>
