@@ -16,8 +16,7 @@
         <h1>Shopping List</h1>
         <h3>Hello ${user_name}</h3>
         <form action="" method="post">
-            <a href="ShoppingList?logout">Log out</a>
-            <input type="hidden" name="action" value="logout">
+            <a href="ShoppingList?action=logout">Log out</a>
         </form>
         <h1>List</h1>
         <form>

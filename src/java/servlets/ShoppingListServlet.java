@@ -21,7 +21,9 @@ public class ShoppingListServlet extends HttpServlet {
         HttpSession session = request.getSession();
         // grabs the username of the client
         String username = (String) session.getAttribute("user_name");
-        if (request.getParameter("logout") != null) {
+         // grabs the actions available in the application
+        String action = request.getParameter("action");
+        if (action != null && action.equals("logout")) {
             // invalidates session then 
             // unbinds any objects attached
             session.invalidate();
