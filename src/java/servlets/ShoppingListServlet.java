@@ -68,25 +68,29 @@ public class ShoppingListServlet extends HttpServlet {
             // grabs the item from the input field
             String item = request.getParameter("input_item");
             // check if this is first time an item will be added
-            if (list == null && item != null) {
+            if (list == null && !item.equals("")) {
                 list = new ArrayList<String>();
                 list.add(item);
                 // item(s) to be displayed to application
                 session.setAttribute("shopItem", list);
                 // toggle visibility of delete button
                 session.setAttribute("isNotEmpty", true);
-            } else if (list != null && item != null) {
+            } else if (list != null && !item.equals("")) {
                 list.add(item);
                 // item(s) to be displayed to application
                 session.setAttribute("shopItem", list);
-
             }
             // send the user to the shopping list page
             response.sendRedirect("ShoppingList");
         } else if (action != null && action.equals("delete")) {
-            String selectedItem = request.getParameter("shoppingItem");
-            list.remove(selectedItem);
-            session.setAttribute("shopItem", list);
+            if (list != null) {
+                // determine which item is selected
+                String selectedItem = request.getParameter("shoppingItem");
+                // remove the item from the list
+                list.remove(selectedItem);
+                 // update item(s) to be displayed to application
+                session.setAttribute("shopItem", list);
+            } 
             // send the user to the shopping list page
             response.sendRedirect("ShoppingList");
         }
