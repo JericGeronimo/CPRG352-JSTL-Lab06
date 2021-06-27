@@ -24,12 +24,18 @@
             <input type="text" name="input_item" value="">
             <input type="submit" name="add_Button" value="Add">
             <input type="hidden" name="action" value="add"> <br>
+
             <c:forEach var="item" items="${shopItem}">
-                <input type="radio" name="" value="${shopItem}">${shopItem} <br>
+                <input type="radio" name="shoppingItem" value="${item}">${item} <br>
             </c:forEach>
+        </form>
+
+
+        <form action="" method="post">
             <!-- Will show delete button if one item in the list is present -->
             <c:if test="${isNotEmpty}">
                 <input type="submit" name="delete_Button" value="Delete">
+                <input type="hidden" name="action" value="delete">
             </c:if>
         </form>
     </body>

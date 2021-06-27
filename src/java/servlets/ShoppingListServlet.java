@@ -50,7 +50,7 @@ public class ShoppingListServlet extends HttpServlet {
         // grabs the actions available in the application
         String action = request.getParameter("action");
 
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = (ArrayList<String>) session.getAttribute("shopItem");
 
         // determines if register button is clicked by user
         if (action != null && action.equals("register")) {
@@ -67,16 +67,27 @@ public class ShoppingListServlet extends HttpServlet {
         } else if (action != null && action.equals("add")) {
             // grabs the item from the input field
             String item = request.getParameter("input_item");
-            if(item!= null){
+            // check if this is first time an item will be added
+            if (list == null && item != null) {
+                list = new ArrayList<String>();
                 list.add(item);
+                // item(s) to be displayed to application
+                session.setAttribute("shopItem", list);
+                // toggle visibility of delete button
+                session.setAttribute("isNotEmpty", true);
+            } else if (list != null && item != null) {
+                list.add(item);
+                // item(s) to be displayed to application
+                session.setAttribute("shopItem", list);
+
             }
-            // 
-            session.setAttribute("shopItem", list);
-            // toggle visibility of delete button
-            session.setAttribute("isNotEmpty", true);
             // send the user to the shopping list page
             response.sendRedirect("ShoppingList");
-        } else if (action != null && action.equals("delete")){
+        } else if (action != null && action.equals("delete")) {
+            String selectedItem = request.getParameter("shoppingItem");
+            list.remove(selectedItem);
+            session.setAttribute("shopItem", list);
+            // send the user to the shopping list page
             response.sendRedirect("ShoppingList");
         }
     }
